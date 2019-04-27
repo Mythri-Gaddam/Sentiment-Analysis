@@ -32,17 +32,45 @@ vocab = vect.get_feature_names()
 y_train_count = vect2.transform(test['text'].values.astype('U'))
 
 
-# Classifier
+# Classifiers
 
-classifier_rbf = LinearSVC()
-pipeline1 = make_pipeline(vect, classifier_rbf)
-pipeline1.fit(train['text'].values.astype('U'),train['labels'])
-prediction_rbf = classifier_rbf.predict(y_train_count)
+# SVM
+svm_clf = LinearSVC()
+pipeline_svm = make_pipeline(vect, svm_clf)
+pipeline_svm.fit(train['text'].values.astype('U'),train['labels'])
+prediction_svm = svm_clf.predict(y_train_count)
+
 print("For the SVM classifier:")
 print("Accuracy for SVM")
-print(accuracy_score(test['labels'],prediction_rbf))
-joblib.dump(classifier_rbf, 'final_model_SVM.sav')
-
+print(accuracy_score(test['labels'],prediction_svm))
 
 # Saving the model
-joblib.dump(pipeline1,'svm.mi')
+joblib.dump(svm_clf, 'final_model_SVM.sav')
+
+
+# MultiLayer Perceptron
+mlp_clf = MLPClassifier(alpha=1e-5,random_state=1,hidden_layer_sizes=(1000,),learning_rate='adaptive')
+pipeline_mlp = make_pipeline(vect, mlp_clf)
+pipeline_mlp.fit(train['text'].values.astype('U'),train['labels'])
+prediction_mlp = mlp_clf.predict(y_train_count)
+
+print("For the MLP classifier:")
+print("For the accuracy of  MLP")
+print(accuracy_score(test['labels'],prediction_mlp))
+
+# Saving the model
+joblib.dump(mlp_clf, 'final_model_MLP.sav')
+
+
+# Random Forest
+rf_clf = RandomForestClassifier(random_state=0)
+pipeline_rf = make_pipeline(vect, rf_clf)
+pipeline_rf.fit(train['text'].values.astype('U'),train['labels'])
+prediction_rf = rf_clf.predict(y_train_count)
+
+print("For the Random classifier:")
+print("For the accuracy for RandomForest")
+print(accuracy_score(test['labels'],prediction_rf))
+
+# Saving the model
+joblib.dump(rf_clf, 'final_model_RF.sav')
