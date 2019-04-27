@@ -2,15 +2,17 @@ import pandas as p
 from sklearn.metrics import accuracy_score
 import numpy as np
 import sklearn
+import nltk
 from sklearn.feature_extraction.text import CountVectorizer
-
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.neural_network import MLPClassifier
+from sklearn.datasets import make_classification
 from sklearn.svm import LinearSVC
 from sklearn import tree
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import classification_report
 from sklearn.externals import joblib
-import nltk
 from sklearn.pipeline import make_pipeline
 from sklearn import metrics
 
